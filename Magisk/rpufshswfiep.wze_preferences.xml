@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
-<map>
-    <string name="update_channel">0</string>
-    <string name="su_auto_response">2</string>
-    <boolean name="asked_home" value="true" />
-    <string name="su_notification">0</string>
-</map>
