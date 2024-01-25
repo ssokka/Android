@@ -5,6 +5,7 @@ if [ $# -ne 1 ]; then exit -1; fi
 for id in $(ls /data/user); do
 	
 	### 앱 및 알림 > 고급 > 권한 관리자 > 위치
+	pm grant --user ${id} $1 android.permission.ACCESS_BACKGROUND_LOCATION
 	pm grant --user ${id} $1 android.permission.ACCESS_FINE_LOCATION
 	
 	### 앱 및 알림 > 고급 > 권한 관리자 > 파일 및 미디어
@@ -20,7 +21,6 @@ for id in $(ls /data/user); do
 	appops set --user ${id} $1 WRITE_SETTINGS allow
 	
 	### 앱 및 알림 > 고급 > 특수 앱 액세스 > 알 수 없는 앱 설치
-	#org.lineageos.jelly
 	appops set --user ${id} $1 REQUEST_INSTALL_PACKAGES allow
 	
 	### 앱 및 알림 > 고급 > 특수 앱 액세스 > 사용 기록 액세스
