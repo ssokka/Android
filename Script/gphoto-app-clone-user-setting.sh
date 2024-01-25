@@ -16,7 +16,6 @@ caches=(cache code_cache)
 for id in $(ls /data/user); do
 	if [ "${id}" = "0" ]; then continue; fi
 	own=u${id}_a${aid}
-	
 	for dir in ${dirs[@]}; do
 		if [ -d ${dir}/${id}/$1 ]; then rm -rf ${dir}/${id}/$1; fi
 		cp -R ${dir}/0/$1 ${dir}/${id}/
