@@ -11,7 +11,10 @@ dirs=(
 	/data_mirror/data_ce/null
 	/data_mirror/data_de/null
 )
-caches=(cache code_cache)
+caches=(
+	cache
+ 	code_cache
+)
 
 for id in $(ls /data/user); do
 	if [ "${id}" = "0" ]; then continue; fi
