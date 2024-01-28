@@ -2,7 +2,7 @@
 
 if [ $# -ne 1 ]; then exit -1; fi
 
-aid=$(($(cat /data/system/packages.list | grep $1 | awk -F ' ' '{print $2}')-10000))
+aid=$(($(dumpsys package ${pkg} | grep userId | cut -d '=' -f 2)-10000))
 dirs=(
 	/data/misc/profiles/cur
 	/data/user
