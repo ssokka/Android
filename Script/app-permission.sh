@@ -32,20 +32,15 @@ done
 ### 앱 및 알림 > 고급 > 특수 앱 액세스 > 배터리 최적화 > 최적화하지 않음(리부팅 시 적용)
 dumpsys deviceidle whitelist +$1 2>/dev/null
 
-#### 앱 및 알림 > 고급 > 권한 관리자 > 추가 권한
-#for id in $(ls /data/user); do
-#	pm grant --user ${id} com.joaomgcd.autonotification net.dinglisch.android.tasker.PERMISSION_SEND_COMMAND
-#	pm grant --user ${id} net.dinglisch.android.taskerm net.dinglisch.android.zoom.permission.MAKE_CHANGES
-#	pm grant --user ${id} net.dinglisch.android.taskerm com.termux.permission.RUN_COMMAND
-#done
-
-#### 앱 및 알림 > 고급 > 특수 앱 액세스 > 기기 관리자 앱
-#for id in $(ls /data/user); do
-#	dpm set-active-admin --user ${id} com.anydesk.anydeskandroid/.adcontrol.AdDeviceAdminReceiver
-#	dpm set-active-admin --user ${id} net.dinglisch.android.taskerm/.MyDeviceAdminReceiver
-#done
-
-### 접근성
-#for id in $(ls /data/user); do
-#	settings put --user ${id} secure enabled_accessibility_services net.dinglisch.android.taskerm/net.dinglisch.android.taskerm.MyAccessibilityService:com.joaomgcd.autoinput/com.joaomgcd.autoinput.service.ServiceAccessibilityV2:com.carriez.flutter_hbb/com.carriez.flutter_hbb.InputService:com.joaomgcd.autonotification/com.joaomgcd.autonotification.service.ServiceToastIntercept
-#done
+if [ "$1" == "net.dinglisch.android.taskerm" ]; then
+	for id in $(ls /data/user); do
+ 		### 앱 및 알림 > 고급 > 권한 관리자 > 추가 권한
+		pm grant --user ${id} com.joaomgcd.autonotification net.dinglisch.android.tasker.PERMISSION_SEND_COMMAND
+		pm grant --user ${id} net.dinglisch.android.taskerm net.dinglisch.android.zoom.permission.MAKE_CHANGES
+		pm grant --user ${id} net.dinglisch.android.taskerm com.termux.permission.RUN_COMMAND
+		### 앱 및 알림 > 고급 > 특수 앱 액세스 > 기기 관리자 앱
+		dpm set-active-admin --user ${id} net.dinglisch.android.taskerm/.MyDeviceAdminReceiver
+		### 접근성
+  		settings put --user ${id} secure enabled_accessibility_services net.dinglisch.android.taskerm/net.dinglisch.android.taskerm.MyAccessibilityService:com.joaomgcd.autoinput/com.joaomgcd.autoinput.service.ServiceAccessibilityV2:com.carriez.flutter_hbb/com.carriez.flutter_hbb.InputService:com.joaomgcd.autonotification/com.joaomgcd.autonotification.service.ServiceToastIntercept
+	done
+fi
