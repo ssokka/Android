@@ -23,9 +23,9 @@ for uid in `ls /data/user`; do
 	appops set --user ${uid} $1 SYSTEM_ALERT_WINDOW allow 2>/dev/null
 	### 앱 > 시스템 설정 수정 > 허용됨
 	appops set --user ${uid} $1 WRITE_SETTINGS allow 2>/dev/null
-	### 앱 > 특수 앱 액세스 > 알 수 없는 앱 설치
+	### 앱 > 알 수 없는 앱 설치 > 허용됨
 	appops set --user ${uid} $1 REQUEST_INSTALL_PACKAGES allow 2>/dev/null
-	### 앱 > 특수 앱 액세스 > 사용 기록 액세스
+	### 앱 > 특수 앱 액세스 > 사용 기록 액세스 > 허용됨
 	appops set --user ${uid} $1 GET_USAGE_STATS allow 2>/dev/null
 done
 
