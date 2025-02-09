@@ -6,33 +6,33 @@ echo $1
 
 for uid in `ls /data/user`; do
 	### 앱 > 권한 > 위치
-	pm grant --user ${uid} $1 android.permission.ACCESS_BACKGROUND_LOCATION 2>/dev/null
-	pm grant --user ${uid} $1 android.permission.ACCESS_FINE_LOCATION 2>/dev/null
+	pm grant --user ${uid} ${1} android.permission.ACCESS_BACKGROUND_LOCATION 2>/dev/null
+	pm grant --user ${uid} ${1} android.permission.ACCESS_FINE_LOCATION 2>/dev/null
 	### 앱 > 권한 > 파일 및 미디어
-	appops set --user ${uid} --uid $1 MANAGE_EXTERNAL_STORAGE allow 2>/dev/null
-	pm grant --user ${uid} $1 android.permission.ACCESS_MEDIA_LOCATION 2>/dev/null
-	pm grant --user ${uid} $1 android.permission.READ_EXTERNAL_STORAGE 2>/dev/null
-	pm grant --user ${uid} $1 android.permission.WRITE_EXTERNAL_STORAGE 2>/dev/null
+	appops set --user ${uid} --uid ${1} MANAGE_EXTERNAL_STORAGE allow 2>/dev/null
+	pm grant --user ${uid} ${1} android.permission.ACCESS_MEDIA_LOCATION 2>/dev/null
+	pm grant --user ${uid} ${1} android.permission.READ_EXTERNAL_STORAGE 2>/dev/null
+	pm grant --user ${uid} ${1} android.permission.WRITE_EXTERNAL_STORAGE 2>/dev/null
  	### 앱 > 엡 베터리 사용량 > 제한 없음
- 	appops set --user ${uid} $1 RUN_ANY_IN_BACKGROUND allow
-  	appops set --user ${uid} $1 WAKE_LOCK allow
-   	am broadcast --user ${uid} $1 -W -a android.intent.action.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS -d package:$1 2>/dev/null
+ 	appops set --user ${uid} ${1} RUN_ANY_IN_BACKGROUND allow
+  	appops set --user ${uid} ${1} WAKE_LOCK allow
+   	am broadcast --user ${uid} ${1} -W -a android.intent.action.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS -d package:${1} 2>/dev/null
 	### 앱 > 사용하지 않을 때 앱 활동 일시 중지 > 끔
- 	appops set --user ${uid} $1 AUTO_REVOKE_PERMISSIONS_IF_UNUSED ignore 2>/dev/null
+ 	appops set --user ${uid} ${1} AUTO_REVOKE_PERMISSIONS_IF_UNUSED ignore 2>/dev/null
 	### 앱 > 다른 앱 위에 표시 > 허용됨
-	appops set --user ${uid} $1 SYSTEM_ALERT_WINDOW allow 2>/dev/null
+	appops set --user ${uid} ${1} SYSTEM_ALERT_WINDOW allow 2>/dev/null
 	### 앱 > 시스템 설정 수정 > 허용됨
-	appops set --user ${uid} $1 WRITE_SETTINGS allow 2>/dev/null
+	appops set --user ${uid} ${1} WRITE_SETTINGS allow 2>/dev/null
 	### 앱 > 알 수 없는 앱 설치 > 허용됨
-	appops set --user ${uid} $1 REQUEST_INSTALL_PACKAGES allow 2>/dev/null
+	appops set --user ${uid} ${1} REQUEST_INSTALL_PACKAGES allow 2>/dev/null
 	### 앱 > 특수 앱 액세스 > 사용 기록 액세스 > 허용됨
-	appops set --user ${uid} $1 GET_USAGE_STATS allow 2>/dev/null
+	appops set --user ${uid} ${1} GET_USAGE_STATS allow 2>/dev/null
 done
 
 ### 앱 > 특수 앱 액세스 > 배터리 최적화 > 최적화하지 않음(리부팅 시 적용)
-dumpsys deviceidle whitelist +$1 2>/dev/null
+dumpsys deviceidle whitelist +${1} 2>/dev/null
 
-if [[ "$1" == "net.dinglisch.android.taskerm" ]]; then
+if [[ ${1} == "net.dinglisch.android.taskerm" ]]; then
 	for uid in `ls /data/user`; do
  		### 앱 > 권한 > 추가 권한
 		#pm grant --user ${uid} com.joaomgcd.autonotification net.dinglisch.android.tasker.PERMISSION_SEND_COMMAND
