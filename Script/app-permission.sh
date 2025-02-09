@@ -16,6 +16,7 @@ for uid in `ls /data/user`; do
  	### 앱 > 엡 베터리 사용량 > 제한 없음
  	appops set --user ${uid} $1 RUN_ANY_IN_BACKGROUND allow
   	appops set --user ${uid} $1 WAKE_LOCK allow
+   	am broadcast --user ${uid} $1 -W -a android.intent.action.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS -d package:$1 2>/dev/null
 	### 앱 > 사용하지 않을 때 앱 활동 일시 중지 > 끔
  	appops set --user ${uid} $1 AUTO_REVOKE_PERMISSIONS_IF_UNUSED ignore 2>/dev/null
 	### 앱 > 다른 앱 위에 표시 > 허용됨
@@ -30,7 +31,6 @@ done
 
 ### 앱 > 특수 앱 액세스 > 배터리 최적화 > 최적화하지 않음(리부팅 시 적용)
 dumpsys deviceidle whitelist +$1 2>/dev/null
-am broadcast -a android.intent.action.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS -d package:$1 2>/dev/null
 
 if [[ "$1" == "net.dinglisch.android.taskerm" ]]; then
 	for uid in `ls /data/user`; do
