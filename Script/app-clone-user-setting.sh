@@ -1,6 +1,6 @@
 #!/system/bin/sh
 
-if [ $# -ne 1 ]; then exit -1; fi
+[[ $# != 1 || -z `pm list packages ${1}` ]] && exit -1
 
 aid=$(($(dumpsys package $1 | grep userId | cut -d '=' -f 2)-10000))
 dirs=(
@@ -16,16 +16,16 @@ caches=(
  	code_cache
 )
 
-for id in $(ls /data/user); do
-	if [ "${id}" = "0" ]; then continue; fi
-	own=u${id}_a${aid}
+for uid in `ls /data/user`; do
+	[[ ${uid} == 0 ]] && continue
+	own=u${uid}_a${aid}
 	for dir in ${dirs[@]}; do
-		if [ ! -d ${dir} ]; then continue; fi
-		if [ -d ${dir}/${id}/$1 ]; then rm -rf ${dir}/${id}/$1; fi
-		cp -R ${dir}/0/$1 ${dir}/${id}/
-		chown -R ${own}:${own} ${dir}/${id}/$1
+		[[ ! -d ${dir} ]] && continue
+		[[ -d ${dir}/${uid}/$1 ]] && rm -rf ${dir}/${uid}/$1
+		cp -R ${dir}/0/$1 ${dir}/${uid}/
+		chown -R ${own}:${own} ${dir}/${uid}/$1
 		for cache in ${caches[@]}; do
-			if [ -d ${dir}/${id}/$1/${cache} ]; then chown -R ${own}:${own}_cache ${dir}/${id}/$1/${cache}; fi;
+			[[ -d ${dir}/${uid}/$1/${cache} ]] && chown -R ${own}:${own}_cache ${dir}/${uid}/$1/${cache}
 		done
 	done
 done
