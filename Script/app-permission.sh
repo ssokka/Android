@@ -16,6 +16,7 @@ for uid in `ls /data/user`; do
  	### 앱 > 엡 베터리 사용량 > 제한 없음
  	appops set --user ${uid} $1 RUN_ANY_IN_BACKGROUND allow
   	appops set --user ${uid} $1 WAKE_LOCK allow
+   	am broadcast --user ${uid} $1 -W -a android.intent.action.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS -d package:$1 2>/dev/null
 	### 앱 > 사용하지 않을 때 앱 활동 일시 중지 > 끔
  	appops set --user ${uid} $1 AUTO_REVOKE_PERMISSIONS_IF_UNUSED ignore 2>/dev/null
 	### 앱 > 다른 앱 위에 표시 > 허용됨
