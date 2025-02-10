@@ -2,11 +2,12 @@
 
 [[ $# != 1 || -z `pm list packages ${1}` ]] && exit -1
 
+echo
 echo "### $1"
 echo
 
 for uid in `ls /data/user`; do
-	echo "# User ID 0"
+	echo "# User ID ${uid}"
  	
  	echo " 앱 > 권한 > 위치"
 	pm grant --user ${uid} ${1} android.permission.ACCESS_BACKGROUND_LOCATION 2>/dev/null
