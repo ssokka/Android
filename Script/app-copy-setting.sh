@@ -3,7 +3,7 @@
 [[ $# != 1 || -z `pm list packages ${1}` ]] && exit -1
 
 echo
-echo -e "\033[32m### 사용자 앱 설정 복제\033[m"
+echo -e "\033[32m### 사용자 앱 설정 복사\033[m"
 echo -e "\033[33m## ${1}\033[m"
 
 aid=$(($(dumpsys package ${1} | grep userId | cut -d '=' -f 2)-10000))
