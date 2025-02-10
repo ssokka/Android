@@ -68,3 +68,5 @@ if [[ ${1} == "net.dinglisch.android.taskerm" ]]; then
 		
 	done
 fi
+
+echo
