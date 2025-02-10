@@ -4,7 +4,6 @@
 
 echo
 echo -e "\033[32m### 앱 권한 설정\033[m"
-
 echo -e "\033[33m## ${1}\033[m"
 
 for uid in `ls /data/user`; do
@@ -46,15 +45,15 @@ for uid in `ls /data/user`; do
 		
    		echo " 앱 > 권한 > 추가 권한"
 		#pm grant --user ${uid} com.joaomgcd.autonotification net.dinglisch.android.tasker.PERMISSION_SEND_COMMAND
-		pm grant --user ${uid} net.dinglisch.android.taskerm net.dinglisch.android.zoom.permission.MAKE_CHANGES 2>/dev/null
-		pm grant --user ${uid} net.dinglisch.android.taskerm com.termux.permission.RUN_COMMAND 2>/dev/null
+		pm grant --user ${uid} net.dinglisch.android.taskerm net.dinglisch.android.zoom.permission.MAKE_CHANGES
+		pm grant --user ${uid} net.dinglisch.android.taskerm com.termux.permission.RUN_COMMAND
 		
   		echo " 앱 > 특수 앱 액세스 > 기기 관리자 앱"
-		dpm set-active-admin --user ${uid} net.dinglisch.android.taskerm/.MyDeviceAdminReceiver 2>/dev/null
+		dpm set-active-admin --user ${uid} net.dinglisch.android.taskerm/.MyDeviceAdminReceiver
 		
   		echo "  접근성"
   		#settings put --user ${uid} secure enabled_accessibility_services net.dinglisch.android.taskerm/net.dinglisch.android.taskerm.MyAccessibilityService:com.joaomgcd.autoinput/com.joaomgcd.autoinput.service.ServiceAccessibilityV2:com.carriez.flutter_hbb/com.carriez.flutter_hbb.InputService:com.joaomgcd.autonotification/com.joaomgcd.autonotification.service.ServiceToastIntercept 2>/dev/null
-		settings put --user ${uid} secure enabled_accessibility_services net.dinglisch.android.taskerm/net.dinglisch.android.taskerm.MyAccessibilityService:com.joaomgcd.autoinput/com.joaomgcd.autoinput.service.ServiceAccessibilityV2 2>/dev/null
+		settings put --user ${uid} secure enabled_accessibility_services net.dinglisch.android.taskerm/net.dinglisch.android.taskerm.MyAccessibilityService:com.joaomgcd.autoinput/com.joaomgcd.autoinput.service.ServiceAccessibilityV2
 		
 	fi
   	
