@@ -2,15 +2,14 @@
 
 [[ $# != 1 || -z `pm list packages ${1}` ]] && exit -1
 
-echo -e "\033[32m### 앱 권한 설정\033[m"
 echo
+echo -e "\033[32m### 앱 권한 설정\033[m"
 
 echo -e "\033[33m## ${1}\033[m"
-echo
 
 for uid in `ls /data/user`; do
 	
- 	echo "# User ID ${uid}"
+ 	echo -e "\033[36m# User ID ${uid}\033[m"
  	am start-user ${uid} -W
   	
  	echo " 앱 > 권한 > 위치"
@@ -63,3 +62,5 @@ done
 
 echo " 앱 > 앱 배터리 사용량 > 제한 없음"
 dumpsys deviceidle whitelist +${1} 2>/dev/null
+
+echo
