@@ -8,7 +8,8 @@ echo
 
 for uid in `ls /data/user`; do
 	echo "# User ID ${uid}"
- 	
+ 	am start-user ${uid} -W
+  	
  	echo " 앱 > 권한 > 위치"
 	pm grant --user ${uid} ${1} android.permission.ACCESS_BACKGROUND_LOCATION 2>/dev/null
 	pm grant --user ${uid} ${1} android.permission.ACCESS_FINE_LOCATION 2>/dev/null
