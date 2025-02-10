@@ -26,7 +26,7 @@ for uid in `ls /data/user`; do
 	am force-stop --user ${uid} ${1} -f
  	[[ ${uid} == 0 ]] && continue
 	
- 	echo -e "\033[36m## User ID ${uid}\033[m"
+ 	echo -e "\033[36m# User ID ${uid}\033[m"
  	
   	own=u${uid}_a${aid}
 	for dir in ${dirs[@]}; do
