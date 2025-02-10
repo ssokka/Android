@@ -2,6 +2,10 @@
 
 [[ $# != 1 || -z `pm list packages ${1}` ]] && exit -1
 
+echo
+echo -e "\033[32m### 사용자 앱 설정 복제\033[m"
+echo -e "\033[33m## ${1}\033[m"
+
 aid=$(($(dumpsys package ${1} | grep userId | cut -d '=' -f 2)-10000))
 dirs=(
 	/data/misc/profiles/cur
@@ -21,7 +25,10 @@ apid=`pidof ${1}`
 for uid in `ls /data/user`; do
 	am force-stop --user ${uid} ${1} -f
  	[[ ${uid} == 0 ]] && continue
-	own=u${uid}_a${aid}
+	
+ 	echo -e "\033[36m## User ID ${uid}\033[m"
+ 	
+  	own=u${uid}_a${aid}
 	for dir in ${dirs[@]}; do
 		[[ ! -d ${dir} ]] && continue
 		[[ -d ${dir}/${uid}/${1} ]] && rm -rf ${dir}/${uid}/${1}
@@ -36,3 +43,5 @@ done
 for uid in `ls /data/user`; do
 	[[ ${apid} ]] && am start --user ${uid} ${1}
 done
+
+echo
