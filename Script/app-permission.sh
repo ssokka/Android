@@ -2,10 +2,12 @@
 
 [[ $# != 1 || -z `pm list packages ${1}` ]] && exit -1
 
-echo ### $1
+echo "### $1"
+echo
 
 for uid in `ls /data/user`; do
-	
+	echo "# User ID 0"
+ 	
  	echo " 앱 > 권한 > 위치"
 	pm grant --user ${uid} ${1} android.permission.ACCESS_BACKGROUND_LOCATION 2>/dev/null
 	pm grant --user ${uid} ${1} android.permission.ACCESS_FINE_LOCATION 2>/dev/null
@@ -35,7 +37,9 @@ for uid in `ls /data/user`; do
 
  	echo " 앱 > 특수 앱 액세스 > 사용 기록 액세스 > 허용됨"
 	appops set --user ${uid} ${1} GET_USAGE_STATS allow 2>/dev/null
- 
+
+  	echo
+
 done
 
 echo " 앱 > 특수 앱 액세스 > 배터리 최적화 > 최적화하지 않음(리부팅 시 적용)"
@@ -43,7 +47,9 @@ dumpsys deviceidle whitelist +${1} 2>/dev/null
 
 if [[ ${1} == "net.dinglisch.android.taskerm" ]]; then
 	for uid in `ls /data/user`; do
- 		
+
+   		echo "# User ID 0"
+     		
    		echo " 앱 > 권한 > 추가 권한"
 		#pm grant --user ${uid} com.joaomgcd.autonotification net.dinglisch.android.tasker.PERMISSION_SEND_COMMAND
 		pm grant --user ${uid} net.dinglisch.android.taskerm net.dinglisch.android.zoom.permission.MAKE_CHANGES
@@ -55,6 +61,8 @@ if [[ ${1} == "net.dinglisch.android.taskerm" ]]; then
   		echo "  접근성"
   		#settings put --user ${uid} secure enabled_accessibility_services net.dinglisch.android.taskerm/net.dinglisch.android.taskerm.MyAccessibilityService:com.joaomgcd.autoinput/com.joaomgcd.autoinput.service.ServiceAccessibilityV2:com.carriez.flutter_hbb/com.carriez.flutter_hbb.InputService:com.joaomgcd.autonotification/com.joaomgcd.autonotification.service.ServiceToastIntercept
 		settings put --user ${uid} secure enabled_accessibility_services net.dinglisch.android.taskerm/net.dinglisch.android.taskerm.MyAccessibilityService:com.joaomgcd.autoinput/com.joaomgcd.autoinput.service.ServiceAccessibilityV2
-  
+
+    		echo
+		
 	done
 fi
